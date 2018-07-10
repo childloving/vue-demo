@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue实例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!-- Vue实例 -->
+<!-----------------------------------------设置属性也会影响到原始数据,反之亦然----->
+<!--<script>
+
+    //数据对象
+    var data = {a:1};
+
+    //该对象被加入到一个Vue示例中
+    var vm = new Vue({
+        data:data
+    });
+
+    //获得这个示例上的属性
+    //返回源数据中对应的字段
+    console.log(vm.a == data.a);//true
+
+    //设置属性也会影响到原始数据,反之亦然
+    vm.a = 2;
+    console.log(data.a); //2
+
+    //反之亦然
+    data.a = 3;
+    console.log(vm.a); //3
+</script> -->
+
+<!---------------------------------- 只有当实例被创建时data中存在的属性才是响应式的 ----->
+<!--<script>
+    //只有当实例被创建时data中存在的属性才是响应式的。如果添加一个新的属性，如 vm.b='h1'，对b的改动不会触发任何视图的更新。
+    //解决方法，设置初始值,创建时为空或不存在。
+    /*data:{
+        newTodoText:'',
+            visitCount:0,
+            hideCompletedTodos:false,
+            todos:[],
+            error:null
+    }*/
+</script> -->
+
+
+<!------------------------------------ Object.freeze()会阻止修改现有属性，使响应系统无法再追踪变化-->
+<!--
+<div id="app">
+    <p>{{foo}}</p>
+    <button v-on:click="foo='baz'">Change it</button>
+</div>
+<script>
+    var obj={
+        foo:'bar'
+    };
+    //Object.freeze(obj);//bar没有变为baz，并且报错
+
+    new Vue({
+        el:'#app',
+        data:obj
+    })
+</script>
+-->
+
+
+
+<!--------------------------------------------- Vue提供前缀$,以便与 用户定义的属性区分开来-->
+<!--<div id="example">{{a}}</div>
+<script>
+var data = {a:1};
+var vm = new Vue({
+    el:'#example',
+    data:data
+});
+
+console.log(vm.$data === data);//data
+console.log( vm.$el === document.getElementById('example') );//true
+
+
+vm.$watch('a',function(newValue, oldValue){
+    //这个回调将在vm.a改变后调用
+    console.log('vm.a改变')
+});
+
+console.log('vm.a=3之前');
+data.a=3;
+</script>-->
+
+
+
+
+</body>
+</html>

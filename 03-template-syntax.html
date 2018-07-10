@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--【模板语法】-->
+<!--------------------------------------- 文本--->
+<!--<span>Message: {{msg}}</span>
+<span v-once> 这个将不会改变: {{msg}}</span>-->
+
+
+<!-------------------------------------- 原始html 双大括号会将数据解释为普通文本，而非html代码。需要使用v-html输出正的HTML代码-->
+<!--<div id="app">
+<p>Using mustaches:{{rawHtml}}</p>
+<p>Using v-html directive:<span v-html="rawHtml"></span></p>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            rawHtml:'<span style="color:red">This should be red.</span>'
+        }
+    })
+</script>-->
+
+<!--------------------------------------- 特性 使用v-bind指令-->
+<!--<div v-bind:id="dynamicId"></div>
+
+<button v-bind:disabled="isButtonDisabled">Button</button>-->
+</body>
+</html>

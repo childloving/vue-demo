@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--【列表渲染】-->
+
+<!---------------------------------------简单v-for-->
+<!--<ul id="example">
+    <li v-for="(item,index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message}}
+    </li>
+</ul>
+<script>
+    new Vue({
+        el:'#example',
+        data:{
+            parentMessage:'Parent',
+            items:[
+                {message:'Foo'},
+                {message:'bar'}
+            ]
+        }
+    })
+</script>-->
+
+
+<!---------------------------------- 一个对象的v-for -->
+<!--<ul id="v-for-object" class="demo">
+    <li v-for="value in object">
+        {{ value }}
+    </li>
+</ul>
+<script>
+    new Vue({
+        el:'#v-for-object',
+        data:{
+            object:{
+                firstName:'John',
+                lastName:'Doe',
+                age:30
+            }
+        }
+    })
+</script>-->
+
+<!---------------------------------------一个对象的v-for提供三个参数-->
+<!--<ul id="v-for-object" class="demo">
+    <li v-for="(value,key,index) in object">
+        {{index}}:{{key}}:{{ value }}
+    </li>
+</ul>
+<script>
+    new Vue({
+        el:'#v-for-object',
+        data:{
+            object:{
+                firstName:'John',
+                lastName:'Doe',
+                age:30
+            }
+        }
+    })
+</script>-->
+
+<!----------------------------------key-->
+<!--<div v-for="item in items" :key="item.id">
+    &lt;!&ndash; 内容 &ndash;&gt;
+</div>
+<div v-for="item in items" v-bind:key="item.id">
+    &lt;!&ndash; 内容 &ndash;&gt;
+</div>-->
+
+
+<!-----------------------------------数组更新检测：变异方法push,pop,shift,unshift,splice,sort,reverse-->
+<!--<ul id="example">
+    <li v-for="(item,index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message}}
+    </li>
+</ul>
+<script>
+    var example = new Vue({
+        el:'#example',
+        data:{
+            parentMessage:'Parent',
+            items:[
+                {message:'Foo'},
+                {message:'bar'}
+            ]
+        }
+    });
+    example.items.push({message:'Baz'})
+</script>-->
+
+<!------------------------------------替换数组： filter，concat()，slice-->
+<!--<ul id="example">
+    <li v-for="(item,index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message}}
+    </li>
+</ul>
+<script>
+    var example = new Vue({
+        el:'#example',
+        data:{
+            parentMessage:'Parent',
+            items:[
+                {message:'Foo'},
+                {message:'bar'}
+            ]
+        }
+    });
+    example.items = example.items.filter(function(item){
+        console.log(item);
+        return item.message.match(/Foo/)
+    });
+</script>-->
+
+<!--------------------------------------注意：利用索引直接设置一个项或者修改数组的长度都不能检测数组更新-->
+<!--<ul id="example">
+    <li v-for="item in items">
+        {{item}}
+    </li>
+</ul>
+<script>
+    var vm = new Vue({
+        el:'#example',
+
+        data:{
+            items:['a','b','c']
+        }
+    });
+    //vm.items[1] = 'x';//不会改变
+    //vm.items.length=2;//不会改变
+
+
+    //解决方法
+    //Vue.set(vm.items,indexOfItem,newValue);或 vm.$set(vm.items,indexOfItem,newValue)
+    //Vue.set(vm.items,1,'d');
+
+    //vm.items.splice(indexOfItem,1,newValue);
+    //vm.items.splice(0,1,'d');
+</script>-->
+
+<!-------------------------------------------对象更改检测注意事项，使用Vue.set,vm.$set,Object.assign-->
+<!--<div id="app">
+    <div>{{a}}</div>
+    <ul>
+        <li v-for="value in userProfile">
+            {{ value }}
+        </li>
+    </ul>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            a:1,
+            userProfile:{
+                name:'Anika'
+            }
+        }
+    });
+
+    vm.b=2;//添加属性不是响应式的
+
+    //解决方法： 使用Vue.set(object, key,value);
+    Vue.set(vm.userProfile,'age',27);
+    vm.$set(vm.userProfile,'sex','woman');
+
+    vm.userProfile = Object.assign({},vm.userProfile,{
+       career: 'teacher'
+    });
+</script>-->
+
+<!----------------------------------------- 显示过滤/排序结果  使用计算属性返回过滤或排序数组结果-->
+<!--<ul id="example">
+    <li v-for="n in evenNumbers">{{n}}</li>
+</ul>
+<script>
+    new Vue({
+        el:'#example',
+        data:{
+            numbers:[1,2,3,4,5]
+        },
+        computed:{
+            evenNumbers:function(){
+                return this.numbers.filter(function(number){
+                    return number % 2 === 0
+                });
+            }
+        }
+    })
+</script>-->
+
+<!----------------------------------------------- 同上，在计算属性不适用情况下（例如嵌套v-for循环中）使用method方法。-->
+<!--<ul id="example">
+    <li v-for="n in even(numbers)">{{n}}</li>
+</ul>
+<script>
+    new Vue({
+        el:'#example',
+        data:{
+            numbers:[1,2,3,4,5]
+        },
+        methods: {
+            even: function(numbers){
+                return numbers.filter(function(number){
+                    return number % 2 === 0
+                });
+            }
+        }
+    })
+</script>-->
+
+
+<!------------------------------------------------一个组件的v-for-->
+<div id="todo-list-example">
+    <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Add a todo</label>
+        <input
+            v-model="newTodoText"
+            id="new-todo"
+            placeholder="E.g. Feed the cat">
+        <button>Add</button>
+    </form>
+    <ul>
+        <li
+            is="todo-item"
+            v-for="(todo, index) in todos"
+            v-bind:key="todo.id"
+            v-bind:title="todo.title"
+            v-on:remove="todos.splice(index,1)"
+        ></li>
+    </ul>
+</div>
+<script>
+    Vue.component('todo-item',{
+        template:'\
+        <li>\
+            {{title}}\
+            <button v-on:click="$emit(\'remove\')">Remove</button>\
+        </li>\
+        ',
+        props:['title']
+    });
+
+    new Vue({
+        el: '#todo-list-example',
+        data:{
+            newTodoText: '',
+            todos:[
+                {
+                    id:1,
+                    title:'Do the dishes'
+                },
+                {
+                    id:2,
+                    title:'Take out the trash'
+                },
+                {
+                    id:3,
+                    title:'Mow the lawn'
+                }
+            ],
+            nextTodoId: 4
+        },
+        methods:{
+            addNewTodo: function(){
+                this.todos.push({
+                    id: this.newTodoId++,
+                    title:this.newTodoText
+                });
+                this.newTodoText = ''
+            }
+        }
+    })
+</script>
+</body>
+</html>

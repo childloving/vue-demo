@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class与style绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<div>
+<!--【Class与style绑定】-->
+
+<!-------------------------------------------------- 绑定对象-->
+<!--<div id="app">
+    <div v-bind:class="{active:isActive}"></div>
+    <div class="static" v-bind:class="{active:isActive,'text-danger':hasError}"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            isActive:true,
+            hasError:false
+        }
+    });
+</script>-->
+
+
+<!---------------------------------------------------- 绑定对象名称-->
+<!--<div id="app">
+<div v-bind:class="classObject"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            classObject:{
+                active: true,
+                'text-danger': false
+            }
+        }
+    });
+</script>-->
+
+<!---------------------------------------------- 绑定一个返回对象的计算属性-->
+<!--<div id="app">
+    <div v-bind:class="classObject"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            isActive: true,
+            error: null
+        },
+        computed:{
+            classObject: function(){
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        }
+    });
+</script>-->
+
+
+<!-------------------------------------------- 绑定一个数组-->
+<!--<div id="app">
+    <div v-bind:class="[activeClass,errorClass]"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            activeClass:'active',
+            errorClass:'text-danger'
+        }
+    });
+</script>-->
+
+<!-------------------------------------------数组里某一元素为三元表达式，或者为对象-->
+<!--<div id="app">
+    <div v-bind:class="[isActive ? activeClass: '', errorClass]"></div>
+    <div v-bind:class="[{active:isActive}, errorClass]"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            isActive:true,
+            activeClass:'active',
+            errorClass:'text-danger'
+        }
+    });
+</script>-->
+
+
+<!--------------------------------- 绑定在组件上 -->
+<!--<div id="app">
+    <my-component class="baz boo"></my-component>
+    <my-component v-bind:class="{active:isActive}"></my-component>
+</div>
+<script>
+
+    Vue.component('my-component', {
+        template: '<p class="foo bar"></p>'
+    });
+    //最后渲染第一个p标签的class为foo bar baz boo
+    //new Vue要放在后面
+    new Vue({
+        el:'#app',
+        data:{
+            isActive:true
+        }
+    });
+</script>-->
+
+<!------------------------------------------------- 绑定内联样式：对象语法，数组语法 -->
+<div id="app">
+    <div v-bind:style="{color:activeColor,fontSize:fontSize+'px'}"></div>
+    <div v-bind:style="styleObject"></div>
+    <div v-bind:style="[baseStyles, overridingStyles]"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            activeColor:'red',
+            fontSize:30,
+            styleObject:{
+                color:'red',
+                fontSize:'13px'
+            },
+            baseStyles:{
+                color:'red',
+                fontSize:'10px'
+            },
+            overridingStyles:{
+                color:'yellow'
+            }
+        }
+    });
+</script>
+
+
+
+</body>
+</html>
